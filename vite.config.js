@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/wasp-demo/',
+  base: '/',
+  plugins: [],
   server: {
     headers: {
       'Cross-Origin-Opener-Policy': 'same-origin',
