@@ -86,11 +86,11 @@ const mod = await createModule({
 })
 
 await (async (Module) => {
-  const kernelRes = await fetch("/kernel.wasm");
-  Module.FS.writeFile("/kernel.wasm", new Uint8Array(await kernelRes.arrayBuffer()));
+  const kernelRes = await fetch("/vmlinux");
+  Module.FS.writeFile("/vmlinux", new Uint8Array(await kernelRes.arrayBuffer()));
 
-  const rootfsRes = await fetch("/rootfs.img");
-  Module.FS.writeFile("/rootfs.img", new Uint8Array(await rootfsRes.arrayBuffer()));
+  const rootfsRes = await fetch("/rootfs.ext2");
+  Module.FS.writeFile("/rootfs.ext2", new Uint8Array(await rootfsRes.arrayBuffer()));
 })(mod);
 
-mod.callMain(["-k", "/kernel.wasm", "-r", "/rootfs.img", "-m", "16384"]);
+mod.callMain(["-k", "/vmlinux", "-r", "/rootfs.ext2", "-m", "16384"]);
