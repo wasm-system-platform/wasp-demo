@@ -1499,15 +1499,17 @@ var PThread = {
     // instead of just using new URL(import.meta.url) because bundler's only recognize
     // the first case in their bundling step. The latter ends up producing an invalid
     // URL to import from the server (e.g., for webpack the file:// path).
-    worker = new Worker(new URL("wasm-sp.js", import.meta.url), {
-      "type": "module",
-      // This is the way that we signal to the node worker that it is hosting
-      // a pthread.
-      "workerData": "em-pthread",
-      // This is the way that we signal to the Web Worker that it is hosting
-      // a pthread.
-      "name": "em-pthread-" + PThread.nextWorkerID
-    });
+    worker = new Worker(
+      new URL("wasm-sp.js", import.meta.url), 
+      {
+        "type": "module",
+        // This is the way that we signal to the node worker that it is hosting
+        // a pthread.
+        "workerData": "em-pthread",
+        // This is the way that we signal to the Web Worker that it is hosting
+        // a pthread.
+        "name": "em-pthread-" + PThread.nextWorkerID
+      });
     PThread.unusedWorkers.push(worker);
   },
   getNewWorker() {
